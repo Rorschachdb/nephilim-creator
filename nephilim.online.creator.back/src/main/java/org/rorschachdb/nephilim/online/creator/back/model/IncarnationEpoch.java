@@ -23,9 +23,27 @@ public class IncarnationEpoch {
     private long id;
 
     /**
-     * TODO copy confluence description
+     * IncarnationEpoch's designation - conceptual key
      */
     @Column(nullable = false, unique = true, updatable = true)
     private String name;
+
+    /**
+     * IncarnationEpoch's summary : context, events, people
+     */
+    @Column(updatable = true, length = 5000)
+    private String description;
+
+    /**
+     * Price in incarnation points for a character to acquire an IncarnationEpoch
+     * TODO: add validation (from 0 to 2)
+     */
+    @Column(nullable = false, updatable = true)
+    private int cost;
+
+//    /**
+//     * Array of geographical loci where the IncarnationEpoch takes place
+//     */
+//    private String[] locations = {};
 
 }
