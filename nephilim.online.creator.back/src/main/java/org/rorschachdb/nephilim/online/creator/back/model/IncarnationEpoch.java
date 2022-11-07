@@ -1,11 +1,14 @@
 package org.rorschachdb.nephilim.online.creator.back.model;
 
 import lombok.*;
+import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.List;
 
 /**
- * TODO copy confluence description
+ * Time and places of a given incarnation with related details.
  */
 @Entity
 @Table(name = "T_INCARNATION_EPOCH")
@@ -25,11 +28,12 @@ public class IncarnationEpoch {
     /**
      * IncarnationEpoch's designation - conceptual key
      */
+    @NotBlank
     @Column(nullable = false, unique = true, updatable = true)
     private String name;
 
     /**
-     * IncarnationEpoch's summary : context, events, people
+     * IncarnationEpoch's summary : context, events, people...
      */
     @Column(updatable = true, length = 5000)
     private String description;
@@ -38,12 +42,25 @@ public class IncarnationEpoch {
      * Price in incarnation points for a character to acquire an IncarnationEpoch
      * TODO: add validation (from 0 to 2)
      */
+    @Max(3)
+    @PositiveOrZero
     @Column(nullable = false, updatable = true)
     private int cost;
 
-//    /**
-//     * Array of geographical loci where the IncarnationEpoch takes place
-//     */
-//    private String[] locations = {};
+    /**
+     * Group of incarnation epochs which the IncarnationEpoch is part of
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, updatable = true)
+    private EraEnum era;
+
+    /**
+     * List of geographical loci where the IncarnationEpoch takes place
+     */
+    @NotEmpty
+    @Singular
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "ET_EPOCH_LOCATION", joinColumns = @JoinColumn(name = "id"))
+    private List<String> locations;
 
 }
