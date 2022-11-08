@@ -34,14 +34,14 @@ public class DegreeRepositoryShould {
         Degree degree1 = degreeBuilder
                 .name("Babylonian Baker")
                 .description("Hmmm, fresh bread")
-                .type(DegreeTypeEnum.SIMULACRUM)
+                .type(DegreeTypeEnum.OCCULT_ART)
                 .build();
         degreeRepository.save(degree1);
 
         Degree degree2 = degreeBuilder
-                .name("Celestial Antlantis")
+                .name("Fetch Quest")
                 .description(null)
-                .type(DegreeTypeEnum.ESOTERIC_QUEST)
+                .type(DegreeTypeEnum.OCCULT_ART)
                 .build();
         degreeRepository.save(degree2);
 
@@ -50,7 +50,7 @@ public class DegreeRepositoryShould {
         assertThat(degrees)
                 .hasSize(2)
                 .extracting("name", "description", "type")
-                .containsExactlyInAnyOrder(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.SIMULACRUM), new Tuple("Celestial Antlantis", null, DegreeTypeEnum.ESOTERIC_QUEST));
+                .containsExactlyInAnyOrder(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.OCCULT_ART), new Tuple("Celestial Antlantis", null, DegreeTypeEnum.OCCULT_ART));
 
     }
 
@@ -62,14 +62,14 @@ public class DegreeRepositoryShould {
             // GIVEN
             Degree.DegreeBuilder degreeBuilder = Degree.builder();
             Degree degree1 = degreeBuilder
-                    .name("Celestial Antlantis")
+                    .name("Fetch Quest")
                     .description(null)
-                    .type(DegreeTypeEnum.ESOTERIC_QUEST)
+                    .type(DegreeTypeEnum.OCCULT_ART)
                     .build();
             Degree degree2 = degreeBuilder
-                    .name("Celestial Antlantis")
-                    .description(null)
-                    .type(DegreeTypeEnum.ESOTERIC_QUEST)
+                    .name("Fetch Quest")
+                    .description("Go over there")
+                    .type(DegreeTypeEnum.ARCANA_QUEST)
                     .build();
 
             //WHEN
@@ -88,7 +88,7 @@ public class DegreeRepositoryShould {
         Degree degree1 = degreeBuilder
                 .name("")
                 .description(null)
-                .type(DegreeTypeEnum.ESOTERIC_QUEST)
+                .type(DegreeTypeEnum.OCCULT_ART)
                 .build();
         //WHEN
         degreeRepository.save(degree1);
@@ -104,7 +104,7 @@ public class DegreeRepositoryShould {
         // GIVEN
         Degree.DegreeBuilder degreeBuilder = Degree.builder();
         Degree degree1 = degreeBuilder
-                .name("Celestial Atlantis")
+                .name("Fetch Quest")
                 .description(null)
                 .type(null)
                 .build();

@@ -34,15 +34,13 @@ class IncarnationEpochRepositoryShould {
                 .name("A long Time Ago ...")
                 .cost(2)
                 .description("There was a king")
-                .location("one")
-                .era(EraEnum.SECRET_COMPACTS)
+                .era(EraEnum.LOST_ERA)
                 .build();
         epochBuilder = IncarnationEpoch.builder();
         IncarnationEpoch epoch2 = epochBuilder
                 .name("Nowadays")
-                .cost(1)
+                .cost(0)
                 .era(EraEnum.GREAT_AWAKENING)
-                .location("two")
                 .description("Pre-apo")
                 .build();
         // WHEN
@@ -56,8 +54,8 @@ class IncarnationEpochRepositoryShould {
                 .isNotEmpty()
                 .hasSize(2)
                 .extracting("name", "cost", "description", "era")
-                .containsExactlyInAnyOrder(new Tuple("A long Time Ago ...", 2, "There was a king", EraEnum.SECRET_COMPACTS),
-                                                    new Tuple("Nowadays", 1, "Pre-apo", EraEnum.GREAT_AWAKENING));
+                .containsExactlyInAnyOrder(new Tuple("A long Time Ago ...", 2, "There was a king", EraEnum.LOST_ERA),
+                                                    new Tuple("Nowadays", 0, "Pre-apo", EraEnum.GREAT_AWAKENING));
     }
 
     @Test
@@ -67,15 +65,15 @@ class IncarnationEpochRepositoryShould {
         IncarnationEpoch epoch = epochBuilder
                 .name("A long Time Ago ...")
                 .cost(2)
-                .location("Hyboria")
-                .era(EraEnum.SECRET_COMPACTS)
+                .location("Nowhere")
+                .era(EraEnum.LOST_ERA)
                 .build();
         epochBuilder = IncarnationEpoch.builder();
         IncarnationEpoch epoch2 = epochBuilder
                 .name("Nowadays")
                 .cost(1)
-                .location("Lyon")
-                .location("Brittany")
+                .location("Here")
+                .location("There")
                 .era(EraEnum.GREAT_AWAKENING)
                 .build();
             incarnationEpochRepository.save(epoch);
@@ -88,7 +86,7 @@ class IncarnationEpochRepositoryShould {
                 .isNotEmpty()
                 .hasSize(2)
                 .flatExtracting("locations")
-                .containsExactlyInAnyOrder("Hyboria", "Lyon", "Brittany");
+                .containsExactlyInAnyOrder("Nowhere", "Here", "There");
     }
 
     @Test
@@ -102,7 +100,7 @@ class IncarnationEpochRepositoryShould {
                     .name("A long Time Ago ...")
                     .cost(2)
                     .description("There was a king")
-                    .era(EraEnum.SECRET_COMPACTS)
+                    .era(EraEnum.LOST_ERA)
                     .build();
 
             //WHEN
@@ -122,8 +120,8 @@ class IncarnationEpochRepositoryShould {
                     .name("")
                     .cost(2)
                     .description("There was a king")
-                    .location("Atlantis")
-                    .era(EraEnum.SECRET_COMPACTS)
+                    .location("Nowhere")
+                    .era(EraEnum.LOST_ERA)
                     .build();
 
             //WHEN
@@ -143,16 +141,16 @@ class IncarnationEpochRepositoryShould {
                     .name("A Long Time Ago...")
                     .cost(2)
                     .description("There was a king")
-                    .location("Atlantis")
-                    .era(EraEnum.SECRET_COMPACTS)
+                    .location("Nowhere")
+                    .era(EraEnum.LOST_ERA)
                     .build();
 
             IncarnationEpoch epoch2 = epochBuilder
                     .name("A Long Time Ago...")
-                    .cost(2)
-                    .description("There was a king")
-                    .location("Atlantis")
-                    .era(EraEnum.SECRET_COMPACTS)
+                    .cost(0)
+                    .description("Look an eagle!")
+                    .location("Up here")
+                    .era(EraEnum.ELEMENTARY_WARS)
                     .build();
             //WHEN
             incarnationEpochRepository.save(epoch);
@@ -172,8 +170,8 @@ class IncarnationEpochRepositoryShould {
                 .name("A Long Time Ago...")
                 .cost(-1)
                 .description("There was a king")
-                .location("Atlantis")
-                .era(EraEnum.SECRET_COMPACTS)
+                .location("Nowhere")
+                .era(EraEnum.LOST_ERA)
                 .build();
 
         //WHEN
@@ -193,8 +191,8 @@ class IncarnationEpochRepositoryShould {
                 .name("A Long Time Ago...")
                 .cost(3)
                 .description("There was a king")
-                .location("Atlantis")
-                .era(EraEnum.SECRET_COMPACTS)
+                .location("Nowhere")
+                .era(EraEnum.LOST_ERA)
                 .build();
 
         //WHEN
@@ -214,7 +212,7 @@ class IncarnationEpochRepositoryShould {
                     .name("A Long Time Ago...")
                     .cost(0)
                     .description("There was a king")
-                    .location("Atlantis")
+                    .location("Nowhere")
                     .era(null)
                     .build();
 
