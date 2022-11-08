@@ -1,4 +1,4 @@
-package org.rorschachdb.nephilim.online.creator.back.model;
+package org.rorschachdb.nephilim.online.creator.back.model.entities;
 
 import lombok.*;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
@@ -23,7 +23,7 @@ public class IncarnationEpoch {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     /**
      * IncarnationEpoch's designation - conceptual key
@@ -44,7 +44,7 @@ public class IncarnationEpoch {
     @Max(2)
     @PositiveOrZero
     @Column(nullable = false)
-    private int cost;
+    private Integer cost;
 
     /**
      * Group of incarnation epochs which the IncarnationEpoch is part of
@@ -61,6 +61,7 @@ public class IncarnationEpoch {
     @Singular
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "ET_EPOCH_LOCATION", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "location")
     private List<String> locations;
 
 }

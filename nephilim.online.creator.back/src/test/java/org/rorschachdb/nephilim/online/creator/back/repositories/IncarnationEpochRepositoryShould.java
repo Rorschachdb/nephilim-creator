@@ -2,7 +2,7 @@ package org.rorschachdb.nephilim.online.creator.back.repositories;
 
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
-import org.rorschachdb.nephilim.online.creator.back.model.IncarnationEpoch;
+import org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,11 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -46,18 +47,18 @@ class IncarnationEpochRepositoryShould {
                 .description("Pre-apo")
                 .build();
         // WHEN
-        incarnationEpochRepository.save(epoch);
-        incarnationEpochRepository.save(epoch2);
-        List<IncarnationEpoch> epochs = (List<IncarnationEpoch>) incarnationEpochRepository.findAll();
+        this.incarnationEpochRepository.save(epoch);
+        this.incarnationEpochRepository.save(epoch2);
+        List<IncarnationEpoch> epochs = (List<IncarnationEpoch>) this.incarnationEpochRepository.findAll();
 
         // THEN
         assertThat(epochs)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(2)
+                .hasSize(4)
                 .extracting("name", "cost", "description", "era")
-                .containsExactlyInAnyOrder(new Tuple("A long Time Ago ...", 2, "There was a king", EraEnum.LOST_ERA),
-                                                    new Tuple("Nowadays", 0, "Pre-apo", EraEnum.GREAT_AWAKENING));
+                .contains(new Tuple("A long Time Ago ...", 2, "There was a king", EraEnum.LOST_ERA),
+                        new Tuple("Nowadays", 0, "Pre-apo", EraEnum.GREAT_AWAKENING));
     }
 
     @Test
@@ -78,44 +79,50 @@ class IncarnationEpochRepositoryShould {
                 .location("There")
                 .era(EraEnum.GREAT_AWAKENING)
                 .build();
-            incarnationEpochRepository.save(epoch);
-            incarnationEpochRepository.save(epoch2);
+        this.incarnationEpochRepository.save(epoch);
+        this.incarnationEpochRepository.save(epoch2);
 
-        List<IncarnationEpoch> epochs = (List<IncarnationEpoch>) incarnationEpochRepository.findAll();
+        List<IncarnationEpoch> epochs = (List<IncarnationEpoch>) this.incarnationEpochRepository.findAll();
 
         assertThat(epochs)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(2)
+                .hasSize(4)
                 .flatExtracting("locations")
-                .containsExactlyInAnyOrder("Nowhere", "Here", "There");
+                .contains("Nowhere", "Here", "There");
     }
 
     @Test
     public void failOnLocationValidation() {
+        // GIVEN
+        IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
+        IncarnationEpoch epoch = epochBuilder
+                .name("A long Time Ago ...")
+                .cost(2)
+                .description("There was a king")
+                .era(EraEnum.SECRET_COMPACTS)
+                .build();
 
-        // ASSERT THAT
-        assertThatThrownBy(() ->{
-            // GIVEN
-            IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
-            IncarnationEpoch epoch = epochBuilder
-                    .name("A long Time Ago ...")
-                    .cost(2)
-                    .description("There was a king")
-                    .era(EraEnum.LOST_ERA)
-                    .build();
-
+        ConstraintViolationException constraintViolationException = catchThrowableOfType(() -> {
             //WHEN
-            incarnationEpochRepository.save(epoch);
-            em.flush();
-            }).isInstanceOf(ConstraintViolationException.class);
+            this.incarnationEpochRepository.save(epoch);
+            this.em.flush();
+        }, ConstraintViolationException.class);
+
+        // THEN
+        Set<ConstraintViolation<?>> violations = constraintViolationException.getConstraintViolations();
+        assertThat(violations).isNotEmpty().hasSize(1);
+        assertThat(violations).extracting("messageTemplate")
+                .contains("{javax.validation.constraints.NotEmpty.message}");
+
+
     }
 
     @Test
     public void failOnBLankNameValidation() {
 
         // ASSERT THAT
-        assertThatThrownBy(() ->{
+        assertThatThrownBy(() -> {
             // GIVEN
             IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
             IncarnationEpoch epoch = epochBuilder
@@ -127,8 +134,8 @@ class IncarnationEpochRepositoryShould {
                     .build();
 
             //WHEN
-            incarnationEpochRepository.save(epoch);
-            em.flush();
+            this.incarnationEpochRepository.save(epoch);
+            this.em.flush();
         }).isInstanceOf(ConstraintViolationException.class);
     }
 
@@ -136,7 +143,7 @@ class IncarnationEpochRepositoryShould {
     public void failOnSameNamePersistence() {
 
         // ASSERT THAT
-       assertThatThrownBy(() ->{
+        assertThatThrownBy(() -> {
             // GIVEN
             IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
             IncarnationEpoch epoch = epochBuilder
@@ -155,9 +162,9 @@ class IncarnationEpochRepositoryShould {
                     .era(EraEnum.ELEMENTARY_WARS)
                     .build();
             //WHEN
-            incarnationEpochRepository.save(epoch);
-            incarnationEpochRepository.save(epoch2);
-            em.flush();
+            this.incarnationEpochRepository.save(epoch);
+            this.incarnationEpochRepository.save(epoch2);
+            this.em.flush();
         }).isInstanceOf(PersistenceException.class);
     }
 
@@ -165,20 +172,20 @@ class IncarnationEpochRepositoryShould {
     public void failOnNegativeCostValidation() {
 
         // ASSERT THAT
-        assertThatThrownBy(() ->{
-        // GIVEN
-        IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
-        IncarnationEpoch epoch = epochBuilder
-                .name("A Long Time Ago...")
-                .cost(-1)
-                .description("There was a king")
-                .location("Nowhere")
-                .era(EraEnum.LOST_ERA)
-                .build();
+        assertThatThrownBy(() -> {
+            // GIVEN
+            IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
+            IncarnationEpoch epoch = epochBuilder
+                    .name("A Long Time Ago...")
+                    .cost(-1)
+                    .description("There was a king")
+                    .location("Nowhere")
+                    .era(EraEnum.LOST_ERA)
+                    .build();
 
-        //WHEN
-        incarnationEpochRepository.save(epoch);
-        em.flush();
+            //WHEN
+            this.incarnationEpochRepository.save(epoch);
+            this.em.flush();
         }).isInstanceOf(ConstraintViolationException.class);
     }
 
@@ -186,20 +193,20 @@ class IncarnationEpochRepositoryShould {
     public void failOnCostGreaterThanTwoValidation() {
 
         // ASSERT THAT
-        assertThatThrownBy(() ->{
-        // GIVEN
-        IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
-        IncarnationEpoch epoch = epochBuilder
-                .name("A Long Time Ago...")
-                .cost(3)
-                .description("There was a king")
-                .location("Nowhere")
-                .era(EraEnum.LOST_ERA)
-                .build();
+        assertThatThrownBy(() -> {
+            // GIVEN
+            IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
+            IncarnationEpoch epoch = epochBuilder
+                    .name("A Long Time Ago...")
+                    .cost(3)
+                    .description("There was a king")
+                    .location("Nowhere")
+                    .era(EraEnum.LOST_ERA)
+                    .build();
 
-        //WHEN
-        incarnationEpochRepository.save(epoch);
-        em.flush();
+            //WHEN
+            this.incarnationEpochRepository.save(epoch);
+            this.em.flush();
         }).isInstanceOf(ConstraintViolationException.class);
     }
 
@@ -207,7 +214,7 @@ class IncarnationEpochRepositoryShould {
     public void failOnNullEraValidation() {
 
         // ASSERT THAT
-        assertThatThrownBy(() ->{
+        assertThatThrownBy(() -> {
             // GIVEN
             IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
             IncarnationEpoch epoch = epochBuilder
@@ -219,8 +226,8 @@ class IncarnationEpochRepositoryShould {
                     .build();
 
             //WHEN
-            incarnationEpochRepository.save(epoch);
-            em.flush();
+            this.incarnationEpochRepository.save(epoch);
+            this.em.flush();
         }).isInstanceOf(ConstraintViolationException.class);
     }
 }

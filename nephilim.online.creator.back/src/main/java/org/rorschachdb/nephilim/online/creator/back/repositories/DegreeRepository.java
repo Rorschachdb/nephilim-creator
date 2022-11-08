@@ -1,6 +1,6 @@
 package org.rorschachdb.nephilim.online.creator.back.repositories;
 
-import org.rorschachdb.nephilim.online.creator.back.model.Degree;
+import org.rorschachdb.nephilim.online.creator.back.model.entities.Degree;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
