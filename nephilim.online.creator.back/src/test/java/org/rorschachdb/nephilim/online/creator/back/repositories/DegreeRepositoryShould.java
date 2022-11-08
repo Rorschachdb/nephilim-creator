@@ -50,7 +50,7 @@ public class DegreeRepositoryShould {
         assertThat(degrees)
                 .hasSize(2)
                 .extracting("name", "description", "type")
-                .containsExactlyInAnyOrder(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.OCCULT_ART), new Tuple("Celestial Antlantis", null, DegreeTypeEnum.OCCULT_ART));
+                .containsExactlyInAnyOrder(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.OCCULT_ART), new Tuple("Fetch Quest", null, DegreeTypeEnum.OCCULT_ART));
 
     }
 

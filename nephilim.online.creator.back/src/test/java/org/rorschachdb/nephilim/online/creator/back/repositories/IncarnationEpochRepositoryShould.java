@@ -34,12 +34,14 @@ class IncarnationEpochRepositoryShould {
                 .name("A long Time Ago ...")
                 .cost(2)
                 .description("There was a king")
+                .location("Here")
                 .era(EraEnum.LOST_ERA)
                 .build();
         epochBuilder = IncarnationEpoch.builder();
         IncarnationEpoch epoch2 = epochBuilder
                 .name("Nowadays")
                 .cost(0)
+                .location("There")
                 .era(EraEnum.GREAT_AWAKENING)
                 .description("Pre-apo")
                 .build();
