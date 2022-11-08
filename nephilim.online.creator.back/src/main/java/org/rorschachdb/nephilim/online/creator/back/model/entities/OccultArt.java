@@ -19,11 +19,18 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.enums;
+package org.rorschachdb.nephilim.online.creator.back.model.entities;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import java.io.Serializable;
 
 /**
- * Enumeration of Ka Elements
+ * Occult Art Degree Description
+ *
+ * @author rorshachdb
  */
-public enum KaElementEnum {
-    FIRE, EARTH, WATER, MOON, AIR;
+@Entity
+@DiscriminatorValue("OCCULT_ART")
+public class OccultArt extends Degree implements Serializable {
 }

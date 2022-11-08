@@ -19,11 +19,30 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.enums;
+package org.rorschachdb.nephilim.online.creator.back.model.embedded;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.sql.Date;
 
 /**
- * Enumeration of Ka Elements
+ * Time period embeded in {@link org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch}
+ * If only startDate is set Time Period is considered a punctual event. Loste era as neither start nor end date
+ *
+ * @author rorshachdb
  */
-public enum KaElementEnum {
-    FIRE, EARTH, WATER, MOON, AIR;
+@Embeddable
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class TimePeriod implements Serializable {
+
+    private Date startDate;
+    private Date endDate;
 }

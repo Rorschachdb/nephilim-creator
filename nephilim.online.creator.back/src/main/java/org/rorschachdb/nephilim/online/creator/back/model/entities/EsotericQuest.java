@@ -19,11 +19,18 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.enums;
+package org.rorschachdb.nephilim.online.creator.back.model.entities;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import java.io.Serializable;
 
 /**
- * Enumeration of Ka Elements
+ * Arcana Quest Degree Description
+ *
+ * @author rorshachdb
  */
-public enum KaElementEnum {
-    FIRE, EARTH, WATER, MOON, AIR;
+@Entity
+@DiscriminatorValue("ESOTERIC_QUEST")
+public class EsotericQuest extends Degree implements Serializable {
 }

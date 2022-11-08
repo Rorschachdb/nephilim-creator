@@ -19,11 +19,24 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.enums;
+package org.rorschachdb.nephilim.online.creator.back.model.entities;
+
+import org.rorschachdb.nephilim.online.creator.back.model.enums.KaElementEnum;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.io.Serializable;
 
 /**
- * Enumeration of Ka Elements
+ * Simulacrum Degree Description
+ *
+ * @author rorshachdb
  */
-public enum KaElementEnum {
-    FIRE, EARTH, WATER, MOON, AIR;
+@Entity
+@DiscriminatorValue("SIMULACRUM")
+public class Simulacrum extends Degree implements Serializable {
+    @Enumerated(EnumType.STRING)
+    private KaElementEnum affinity;
 }

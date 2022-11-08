@@ -1,4 +1,3 @@
-
 /*
  * nephilim.online.creator.back
  *
@@ -19,11 +18,30 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.enums;
+package org.rorschachdb.nephilim.online.creator.back.model.embedded;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
- * Enumeration of Ka Elements
+ * Embeded id for degree association with incarnation epoch
+ *
+ * @Author rorshachdb
  */
-public enum KaElementEnum {
-    FIRE, EARTH, WATER, MOON, AIR;
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Embeddable
+public class IncarnationEpochDegreeValueId implements Serializable {
+
+    private Long fkDegreeId;
+
+    private Long fkIncarnationEpochId;
+
 }
