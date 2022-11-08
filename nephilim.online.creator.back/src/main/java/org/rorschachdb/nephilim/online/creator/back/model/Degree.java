@@ -32,13 +32,13 @@ public class Degree {
      * Degree's designation - conceptual key
      */
     @NotBlank
-    @Column(nullable = false, unique = true, updatable = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     /**
      * Degree's definition
      */
-    @Column(updatable = true, length = 3000)
+    @Column(length = 3000)
     private String description;
 
     /**
@@ -46,6 +46,6 @@ public class Degree {
      */
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, updatable = true)
+    @Column(nullable = false)
     private DegreeTypeEnum type;
 }

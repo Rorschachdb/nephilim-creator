@@ -29,13 +29,13 @@ public class IncarnationEpoch {
      * IncarnationEpoch's designation - conceptual key
      */
     @NotBlank
-    @Column(nullable = false, unique = true, updatable = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     /**
      * IncarnationEpoch's summary : context, events, people...
      */
-    @Column(updatable = true, length = 5000)
+    @Column(length = 5000)
     private String description;
 
     /**
@@ -43,7 +43,7 @@ public class IncarnationEpoch {
      */
     @Max(2)
     @PositiveOrZero
-    @Column(nullable = false, updatable = true)
+    @Column(nullable = false)
     private int cost;
 
     /**
@@ -51,7 +51,7 @@ public class IncarnationEpoch {
      */
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, updatable = true)
+    @Column(nullable = false)
     private EraEnum era;
 
     /**
