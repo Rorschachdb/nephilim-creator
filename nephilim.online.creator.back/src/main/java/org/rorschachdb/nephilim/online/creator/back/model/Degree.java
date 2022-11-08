@@ -8,9 +8,10 @@ import org.rorschachdb.nephilim.online.creator.back.model.enums.DegreeTypeEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
- * A character's skills
+ * A character's skill
  */
 @Entity
 @Table(name = "T_DEGREE")
@@ -43,6 +44,7 @@ public class Degree {
     /**
      * Category of degrees which the Degree is part of
      */
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, updatable = true)
     private DegreeTypeEnum type;

@@ -40,9 +40,8 @@ public class IncarnationEpoch {
 
     /**
      * Price in incarnation points for a character to acquire an IncarnationEpoch
-     * TODO: add validation (from 0 to 2)
      */
-    @Max(3)
+    @Max(2)
     @PositiveOrZero
     @Column(nullable = false, updatable = true)
     private int cost;
@@ -50,6 +49,7 @@ public class IncarnationEpoch {
     /**
      * Group of incarnation epochs which the IncarnationEpoch is part of
      */
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, updatable = true)
     private EraEnum era;
