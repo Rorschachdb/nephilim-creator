@@ -80,7 +80,7 @@ public class IncarnationEpochController {
     }
 
     /**
-     * POST a new Incarnation epoch to create
+     * POST a new Incarnation Epoch to create
      *
      * @param representation incarnation epoch data
      * @return response entity with uri and body
@@ -117,6 +117,11 @@ public class IncarnationEpochController {
         return ResponseEntity.ok(this.incarnationEpochMapper.toRepresentation(updated));
     }
 
+    /**
+     * DELETE an {@link IncarnationEpoch}
+     * @param id  unique identifier of {@link IncarnationEpoch}
+     * @throws HttpServerErrorException in case the id is incorrect
+     */
     @DeleteMapping(ControllerConstants.ID_URI_PART)
     @Transactional
     @ResponseStatus(HttpStatus.NO_CONTENT)
