@@ -4,7 +4,7 @@ import lombok.*;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
 
 import javax.validation.constraints.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Representation of {@link org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch}
@@ -46,6 +46,6 @@ public class IncarnationEpochRepresentation {
      */
     @NotEmpty
     @Singular
-    private List<String> locations;
+    private Set<String> locations;
 
 }

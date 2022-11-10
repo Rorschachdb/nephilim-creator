@@ -28,27 +28,27 @@ public class DegreeRepositoryShould {
 
     @Test
     public void createAndRetrieveDegrees() {
-        Degree.DegreeBuilder degreeBuilder = Degree.builder();
-        Degree degree1 = degreeBuilder
+        final Degree.DegreeBuilder degreeBuilder = Degree.builder();
+        final Degree degree1 = degreeBuilder
                 .name("Babylonian Baker")
                 .description("Hmmm, fresh bread")
                 .type(DegreeTypeEnum.OCCULT_ART)
                 .build();
         this.degreeRepository.save(degree1);
 
-        Degree degree2 = degreeBuilder
+        final Degree degree2 = degreeBuilder
                 .name("Fetch Quest")
                 .description(null)
                 .type(DegreeTypeEnum.OCCULT_ART)
                 .build();
         this.degreeRepository.save(degree2);
 
-        List<Degree> degrees = (List<Degree>) this.degreeRepository.findAll();
+        final List<Degree> degrees = (List<Degree>) this.degreeRepository.findAll();
 
         assertThat(degrees)
-                .hasSize(2)
+                .hasSize(23)
                 .extracting("name", "description", "type")
-                .containsExactlyInAnyOrder(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.OCCULT_ART), new Tuple("Fetch Quest", null, DegreeTypeEnum.OCCULT_ART));
+                .contains(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.OCCULT_ART), new Tuple("Fetch Quest", null, DegreeTypeEnum.OCCULT_ART));
 
     }
 
@@ -58,13 +58,13 @@ public class DegreeRepositoryShould {
         // ASSERT THAT
         assertThatThrownBy(() -> {
             // GIVEN
-            Degree.DegreeBuilder degreeBuilder = Degree.builder();
-            Degree degree1 = degreeBuilder
+            final Degree.DegreeBuilder degreeBuilder = Degree.builder();
+            final Degree degree1 = degreeBuilder
                     .name("Fetch Quest")
                     .description(null)
                     .type(DegreeTypeEnum.OCCULT_ART)
                     .build();
-            Degree degree2 = degreeBuilder
+            final Degree degree2 = degreeBuilder
                     .name("Fetch Quest")
                     .description("Go over there")
                     .type(DegreeTypeEnum.ARCANA_QUEST)
@@ -83,8 +83,8 @@ public class DegreeRepositoryShould {
         // ASSERT THAT
         assertThatThrownBy(() -> {
             // GIVEN
-            Degree.DegreeBuilder degreeBuilder = Degree.builder();
-            Degree degree1 = degreeBuilder
+            final Degree.DegreeBuilder degreeBuilder = Degree.builder();
+            final Degree degree1 = degreeBuilder
                     .name("")
                     .description(null)
                     .type(DegreeTypeEnum.ESOTERIC_QUEST)
@@ -101,8 +101,8 @@ public class DegreeRepositoryShould {
         // ASSERT THAT
         assertThatThrownBy(() -> {
             // GIVEN
-            Degree.DegreeBuilder degreeBuilder = Degree.builder();
-            Degree degree1 = degreeBuilder
+            final Degree.DegreeBuilder degreeBuilder = Degree.builder();
+            final Degree degree1 = degreeBuilder
                     .name("Celestial Atlantis")
                     .description(null)
                     .type(null)
