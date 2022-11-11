@@ -20,13 +20,13 @@
 
 package org.rorschachdb.nephilim.online.creator.back.model.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.IncarnationEpochDegreeValueId;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
@@ -40,19 +40,35 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-class IncarnationEpochDegreeValue implements Serializable {
+@Valid
+public class IncarnationEpochDegreeValue implements Serializable {
     @EmbeddedId
     private IncarnationEpochDegreeValueId id;
 
+    @Min(1)
+    @Max(3)
     private Integer degreeValue;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("fkDegreeId")
-    @JoinColumn(name = "FK_DEGREE_ID")
-    private Degree degree;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("fkIncarnationEpochId")
     @JoinColumn(name = "FK_INCARNATION_EPOCH_ID")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private IncarnationEpoch incarnationEpoch;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("fkDegreeId")
+    @JoinColumn(name = "FK_DEGREE_ID")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Degree degree;
+
+
+    IncarnationEpochDegreeValue(final IncarnationEpoch incarnationEpoch, final Degree degree, final Integer value) {
+        this.incarnationEpoch = incarnationEpoch;
+        this.degree = degree;
+        this.degreeValue = this.getDegreeValue();
+        this.degreeValue = value;
+        this.id = new IncarnationEpochDegreeValueId(degree.getId(), incarnationEpoch.getId());
+    }
 }

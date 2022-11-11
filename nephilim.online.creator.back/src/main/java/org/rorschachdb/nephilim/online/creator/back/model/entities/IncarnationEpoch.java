@@ -30,6 +30,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -103,6 +104,33 @@ public class IncarnationEpoch implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<IncarnationEpochDegreeValue> posts = new HashSet<>();
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<IncarnationEpochDegreeValue> degreeValues = new HashSet<>();
+
+    //Getters and setters omitted for brevity
+
+    public IncarnationEpochDegreeValue addDegree(final Degree degree, final int value) {
+        final IncarnationEpochDegreeValue degreeValue = new IncarnationEpochDegreeValue(this, degree, value);
+        this.degreeValues.add(degreeValue);
+        return degreeValue;
+    }
+
+    public IncarnationEpochDegreeValue removeDegree(final Degree degree) {
+        for (final Iterator<IncarnationEpochDegreeValue> iterator = this.degreeValues.iterator();
+             iterator.hasNext(); ) {
+            final IncarnationEpochDegreeValue degreeValue = iterator.next();
+
+            if (degreeValue.getIncarnationEpoch().equals(this) &&
+                    degreeValue.getDegree().equals(degree)) {
+                iterator.remove();
+//                degreeValue.setDegree(null);
+//                degreeValue.setIncarnationEpoch(null);
+                return degreeValue;
+            }
+        }
+        return null;
+    }
 
 }

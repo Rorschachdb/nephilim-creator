@@ -22,7 +22,6 @@ package org.rorschachdb.nephilim.online.creator.back.model.embedded;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
@@ -33,7 +32,6 @@ import java.io.Serializable;
  *
  * @Author rorshachdb
  */
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,4 +42,64 @@ public class IncarnationEpochDegreeValueId implements Serializable {
 
     private Long fkIncarnationEpochId;
 
+    public Long getFkDegreeId() {
+        return this.fkDegreeId;
+    }
+
+    public void setFkDegreeId(final Long fkDegreeId) {
+        this.fkDegreeId = fkDegreeId;
+    }
+
+    public Long getFkIncarnationEpochId() {
+        return this.fkIncarnationEpochId;
+    }
+
+    public void setFkIncarnationEpochId(final Long fkIncarnationEpochId) {
+        this.fkIncarnationEpochId = fkIncarnationEpochId;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof IncarnationEpochDegreeValueId)) {
+            return false;
+        }
+        final IncarnationEpochDegreeValueId other = (IncarnationEpochDegreeValueId) o;
+        if (!other.canEqual((Object) this)) {
+            return false;
+        }
+        final Object this$fkDegreeId = this.getFkDegreeId();
+        final Object other$fkDegreeId = other.getFkDegreeId();
+        if (this$fkDegreeId == null ? other$fkDegreeId != null : !this$fkDegreeId.equals(other$fkDegreeId)) {
+            return false;
+        }
+        final Object this$fkIncarnationEpochId = this.getFkIncarnationEpochId();
+        final Object other$fkIncarnationEpochId = other.getFkIncarnationEpochId();
+        if (this$fkIncarnationEpochId == null ? other$fkIncarnationEpochId != null : !this$fkIncarnationEpochId.equals(other$fkIncarnationEpochId)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean canEqual(final Object other) {
+        return other instanceof IncarnationEpochDegreeValueId;
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        final Object $fkDegreeId = this.getFkDegreeId();
+        result = result * PRIME + ($fkDegreeId == null ? 43 : $fkDegreeId.hashCode());
+        final Object $fkIncarnationEpochId = this.getFkIncarnationEpochId();
+        result = result * PRIME + ($fkIncarnationEpochId == null ? 43 : $fkIncarnationEpochId.hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "IncarnationEpochDegreeValueId(fkDegreeId=" + this.getFkDegreeId() + ", fkIncarnationEpochId=" + this.getFkIncarnationEpochId() + ")";
+    }
 }
