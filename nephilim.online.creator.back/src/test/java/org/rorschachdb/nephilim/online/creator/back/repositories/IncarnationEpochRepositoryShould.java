@@ -3,7 +3,9 @@ package org.rorschachdb.nephilim.online.creator.back.repositories;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.MagicEffect;
+import org.rorschachdb.nephilim.online.creator.back.model.entities.Degree;
 import org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch;
+import org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpochDegreeValue;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.OccultScienceTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ class IncarnationEpochRepositoryShould {
     private IncarnationEpochRepository incarnationEpochRepository;
 
     @Test
-    public void createAndRetrieveEpochs() {
+    void createAndRetrieveEpochs() {
         // GIVEN
         IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
         final IncarnationEpoch epoch = epochBuilder
@@ -66,7 +68,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void createAndRetrieveEpochsWithLocations() {
+    void createAndRetrieveEpochsWithLocations() {
         // GIVEN
         IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
         final IncarnationEpoch epoch = epochBuilder
@@ -99,7 +101,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void failOnLocationValidation() {
+    void failOnLocationValidation() {
         // GIVEN
         final IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
         final IncarnationEpoch epoch = epochBuilder
@@ -126,7 +128,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void failOnBLankNameValidation() {
+    void failOnBLankNameValidation() {
 
         // ASSERT THAT
         assertThatThrownBy(() -> {
@@ -147,7 +149,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void failOnSameNamePersistence() {
+    void failOnSameNamePersistence() {
 
         // ASSERT THAT
         assertThatThrownBy(() -> {
@@ -178,7 +180,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void failOnNegativeCostValidation() {
+    void failOnNegativeCostValidation() {
 
         // ASSERT THAT
         assertThatThrownBy(() -> {
@@ -199,7 +201,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void failOnCostGreaterThanTwoValidation() {
+    void failOnCostGreaterThanTwoValidation() {
 
         // ASSERT THAT
         assertThatThrownBy(() -> {
@@ -220,7 +222,7 @@ class IncarnationEpochRepositoryShould {
     }
 
     @Test
-    public void failOnNullEraValidation() {
+    void failOnNullEraValidation() {
 
         // ASSERT THAT
         assertThatThrownBy(() -> {
@@ -239,4 +241,30 @@ class IncarnationEpochRepositoryShould {
             this.em.flush();
         }).isInstanceOf(ConstraintViolationException.class);
     }
+
+    @Test
+    void createCascadingDegreeValues() {
+        // GIVEN
+        final Degree alchimie = this.em.createQuery("select d from Degree d where d.id = 1203", Degree.class).getSingleResult();
+//        final IncarnationEpoch atlantis = this.em.createQuery("select i from IncarnationEpoch i where i.id = 1", IncarnationEpoch.class).getSingleResult();
+        final IncarnationEpoch.IncarnationEpochBuilder epochBuilder = IncarnationEpoch.builder();
+        final IncarnationEpoch epoch = epochBuilder
+                .name("A Long Time Ago...")
+                .cost(0)
+                .description("There was a king")
+                .location("Nowhere")
+                .era(EraEnum.LOST_ERA)
+                .build();
+
+        // WHEN
+        final IncarnationEpochDegreeValue dv = epoch.addDegree(alchimie, 3);
+
+        final IncarnationEpoch created = this.incarnationEpochRepository.save(epoch);
+        final IncarnationEpoch fromDb = this.incarnationEpochRepository.findById(created.getId()).orElse(null);
+        // THEN
+        assertThat(fromDb).isNotNull();
+        assertThat(fromDb.getDegreeValues()).hasSize(1).extracting("degree.name").containsExactly("Alchimie");
+    }
+
+
 }
