@@ -50,7 +50,7 @@ public class Degree implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     /**
      * Degree's designation - conceptual key
