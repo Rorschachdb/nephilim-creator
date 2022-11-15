@@ -1,6 +1,8 @@
 package org.rorschachdb.nephilim.online.creator.back.model.representation;
 
 import lombok.*;
+import org.rorschachdb.nephilim.online.creator.back.model.embedded.MagicEffect;
+import org.rorschachdb.nephilim.online.creator.back.model.embedded.TimePeriod;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
 
 import javax.validation.constraints.*;
@@ -47,5 +49,16 @@ public class IncarnationEpochRepresentation {
     @NotEmpty
     @Singular
     private Set<String> locations;
+
+    @NotEmpty
+    @Singular
+    private Set<MagicEffect> magicEffects;
+
+    private TimePeriod timePeriod;
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @Singular
+    private Set<IncarnationEpochDegreeValueRepresentation> degreeValues;
 
 }

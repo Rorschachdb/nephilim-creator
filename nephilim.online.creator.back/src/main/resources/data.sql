@@ -10,6 +10,13 @@ VALUES (NEXTVAL('HIBERNATE_SEQUENCE'), 2, 'Le Déluge', 'ELEMENTARY_WARS');
 INSERT INTO ET_EPOCH_LOCATION (INCARNATION_EPOCH_ID, location)
 VALUES (1, 'L''Atlantide');
 
+-- MAGICAL EFFECTS
+INSERT INTO ET_MAGIC_EFFECTS (INCARNATION_EPOCH_ID, occult_Science, quantity)
+VALUES (1, 'MAGIC', 2);
+
+INSERT INTO ET_MAGIC_EFFECTS (INCARNATION_EPOCH_ID, occult_Science, quantity)
+VALUES (2, 'MAGIC', 2);
+
 -- DEGREES
 -- ESOTERIC QUEST starts at 1001
 ALTER SEQUENCE HIBERNATE_SEQUENCE RESTART WITH 1001;
@@ -96,59 +103,59 @@ VALUES (NEXTVAL('HIBERNATE_SEQUENCE'), 'SIMULACRUM', 'Charpentier', '', 'EARTH')
 
 -- DEGREE VALUES
 -- Atlantis
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 1001, 2);
 
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 1201, 2);
 
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 1301, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 1302, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 1303, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 
 VALUES (1, 2001, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 2002, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 2003, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 2004, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (1, 2005, 1);
 
 -- Deluge
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1001, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1002, 1);
 
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1201, 3);
 
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1301, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1302, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1303, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1304, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1305, 2);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 1306, 1);
 
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 2006, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 2007, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 2008, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 2009, 1);
-INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, degree_value)
+INSERT INTO AT_INCARNATION_EPOCH_DEGREE_VALUE (fk_incarnation_epoch_id, fk_degree_id, level)
 VALUES (2, 2010, 1);

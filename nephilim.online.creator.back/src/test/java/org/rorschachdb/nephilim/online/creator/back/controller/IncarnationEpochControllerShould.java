@@ -30,6 +30,10 @@ class IncarnationEpochControllerShould {
                 .andExpect(jsonPath("$.locations", not(nullValue())))
                 .andExpect(jsonPath("$.locations", hasSize(1)))
                 .andExpect(jsonPath("$.locations[0]", is("L'Atlantide")))
+                .andExpect(jsonPath("$.magicEffects", hasSize(1)))
+                .andExpect(jsonPath("$.magicEffects[0].occultScience", is("MAGIC")))
+                .andExpect(jsonPath("$.magicEffects[0].quantity", is(2)))
+                .andExpect(jsonPath("$.degreeValues", hasSize(10)))
         ;
 
     }
@@ -47,10 +51,18 @@ class IncarnationEpochControllerShould {
                 .andExpect(jsonPath("$.content[0].locations", not(nullValue())))
                 .andExpect(jsonPath("$.content[0].locations", hasSize(1)))
                 .andExpect(jsonPath("$.content[0].locations[0]", is("L'Atlantide")))
+                .andExpect(jsonPath("$.content[0].magicEffects", hasSize(1)))
+                .andExpect(jsonPath("$.content[0].magicEffects[0].occultScience", is("MAGIC")))
+                .andExpect(jsonPath("$.content[0].magicEffects[0].quantity", is(2)))
+                .andExpect(jsonPath("$.content[0].degreeValues", hasSize(10)))
                 .andExpect(jsonPath("$.content[1].name", is("Le Déluge")))
                 .andExpect(jsonPath("$.content[1].cost", is(2)))
                 .andExpect(jsonPath("$.content[1].era", is("ELEMENTARY_WARS")))
                 .andExpect(jsonPath("$.content[1].locations", anyOf(nullValue(), hasSize(0))))
+                .andExpect(jsonPath("$.content[1].magicEffects", hasSize(1)))
+                .andExpect(jsonPath("$.content[1].magicEffects[0].occultScience", is("MAGIC")))
+                .andExpect(jsonPath("$.content[1].magicEffects[0].quantity", is(2)))
+                .andExpect(jsonPath("$.content[1].degreeValues", hasSize(14)))
 
         ;
     }

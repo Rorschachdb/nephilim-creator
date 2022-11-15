@@ -28,6 +28,8 @@ import org.rorschachdb.nephilim.online.creator.back.model.enums.OccultScienceTyp
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 /**
@@ -42,6 +44,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MagicEffect implements Serializable {
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private OccultScienceTypeEnum occultScience;
     @Column(nullable = false)
     private Integer quantity;

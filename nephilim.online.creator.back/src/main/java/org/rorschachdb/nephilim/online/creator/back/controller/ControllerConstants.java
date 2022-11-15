@@ -8,15 +8,21 @@ import lombok.NoArgsConstructor;
  **/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ControllerConstants {
+    static final String H401_ID_DOES_NOT_MATCH_DEGREE = "401 : no degree found for specified degree id";
     // Path variable Names
     static final String PATH_VAR_ID = "id";
+    static final String PATH_VAR_ID_EPOCH = "idEpoch";
+    static final String PATH_VAR_ID_DEGREE = "idDegree";
     // Resource URIs
     static final String INCARNATION_EPOCH_URI = "/incarnationepoch";
     static final String DEGREE_URI = "/degree";
+    static final String DEGREE_URI_VALUES = "/degreevalues";
     // URI parts
-    static final String ID_URI_PART = "/{id}";
+    static final String ID_URI_PART = "/{" + PATH_VAR_ID + "}";
+    static final String ID_EPOCH_URI_PART = "/{" + PATH_VAR_ID_EPOCH + "}";
 
     // Messages
+    static final String ID_DEGREE_URI_PART = "/{" + PATH_VAR_ID_DEGREE + "}";
     /**
      * HTTP 401 Resource does not match identifier
      */

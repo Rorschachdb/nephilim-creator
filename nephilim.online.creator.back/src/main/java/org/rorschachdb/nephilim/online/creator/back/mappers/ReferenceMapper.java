@@ -1,4 +1,3 @@
-
 /*
  * nephilim.online.creator.back
  *
@@ -19,30 +18,29 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.embedded;
+package org.rorschachdb.nephilim.online.creator.back.mappers;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.mapstruct.ObjectFactory;
+import org.mapstruct.TargetType;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Embeddable;
-import java.io.Serializable;
-import java.time.LocalDate;
+import javax.persistence.EntityManager;
 
 /**
- * Time period embeded in {@link org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch}
- * If only startDate is set Time Period is considered a punctual event. Loste era as neither start nor end date
- *
- * @author rorshachdb
+ * @Author rorshachdb
  */
-@Embeddable
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class TimePeriod implements Serializable {
+@Component
+@RequiredArgsConstructor
+public class ReferenceMapper {
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final EntityManager entityManager;
+
+    @ObjectFactory
+    public <T> T map(final Long id, @TargetType final Class<T> type) {
+        if (id == null) {
+            return null;
+        }
+        return this.entityManager.getReference(type, id);
+    }
 }

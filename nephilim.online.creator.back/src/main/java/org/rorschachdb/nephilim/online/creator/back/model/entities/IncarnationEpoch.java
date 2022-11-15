@@ -88,13 +88,13 @@ public class IncarnationEpoch implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "ET_EPOCH_LOCATION", joinColumns = @JoinColumn(name = "INCARNATION_EPOCH_ID"))
     @Column(name = "location")
-    private Set<String> locations = new HashSet<>();
+    private Set<String> locations;
 
     @NotEmpty
     @Singular
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "ET_MAGIC_EFFECTS", joinColumns = @JoinColumn(name = "INCARNATION_EPOCH_ID"))
-    private Set<MagicEffect> magicEffects = new HashSet<>();
+    private Set<MagicEffect> magicEffects;
 
     @Embedded
     private TimePeriod timePeriod;

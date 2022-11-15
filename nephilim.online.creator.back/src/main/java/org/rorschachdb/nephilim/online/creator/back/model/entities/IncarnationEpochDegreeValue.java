@@ -24,7 +24,6 @@ import lombok.*;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.IncarnationEpochDegreeValueId;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
@@ -40,14 +39,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Valid
 public class IncarnationEpochDegreeValue implements Serializable {
     @EmbeddedId
     private IncarnationEpochDegreeValueId id;
 
     @Min(1)
     @Max(3)
-    private Integer degreeValue;
+    private Integer level;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("fkIncarnationEpochId")
@@ -67,8 +65,7 @@ public class IncarnationEpochDegreeValue implements Serializable {
     IncarnationEpochDegreeValue(final IncarnationEpoch incarnationEpoch, final Degree degree, final Integer value) {
         this.incarnationEpoch = incarnationEpoch;
         this.degree = degree;
-        this.degreeValue = this.getDegreeValue();
-        this.degreeValue = value;
+        this.level = value;
         this.id = new IncarnationEpochDegreeValueId(degree.getId(), incarnationEpoch.getId());
     }
 }

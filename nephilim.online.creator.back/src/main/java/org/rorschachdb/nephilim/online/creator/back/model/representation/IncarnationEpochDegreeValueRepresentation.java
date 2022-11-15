@@ -1,4 +1,3 @@
-
 /*
  * nephilim.online.creator.back
  *
@@ -19,30 +18,34 @@
  *
  */
 
-package org.rorschachdb.nephilim.online.creator.back.model.embedded;
+package org.rorschachdb.nephilim.online.creator.back.model.representation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
- * Time period embeded in {@link org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch}
- * If only startDate is set Time Period is considered a punctual event. Loste era as neither start nor end date
+ * Incarnation Epoch associative data with degree, holds a value field for the specific value to gain
  *
- * @author rorshachdb
+ * @Author rorshachdb
  */
-@Embeddable
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class TimePeriod implements Serializable {
+@AllArgsConstructor
+@Builder
+public class IncarnationEpochDegreeValueRepresentation implements Serializable {
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Long degreeId;
+
+    @Min(1)
+    @Max(3)
+    private Integer level;
+
+    private DegreeRepresentation degree;
+
 }
