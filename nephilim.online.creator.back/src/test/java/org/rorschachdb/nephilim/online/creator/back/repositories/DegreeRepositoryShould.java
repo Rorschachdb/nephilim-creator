@@ -46,7 +46,7 @@ public class DegreeRepositoryShould {
         final List<Degree> degrees = (List<Degree>) this.degreeRepository.findAll();
 
         assertThat(degrees)
-                .hasSize(23)
+                .hasSize(24)
                 .extracting("name", "description", "type")
                 .contains(new Tuple("Babylonian Baker", "Hmmm, fresh bread", DegreeTypeEnum.OCCULT_ART), new Tuple("Fetch Quest", null, DegreeTypeEnum.OCCULT_ART));
 

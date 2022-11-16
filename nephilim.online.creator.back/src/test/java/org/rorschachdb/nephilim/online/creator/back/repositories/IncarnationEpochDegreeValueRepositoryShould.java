@@ -60,7 +60,7 @@ class IncarnationEpochDegreeValueRepositoryShould {
         // THEN
         assertThat(fromDb)
                 .isNotNull()
-                .extracting("incarnationEpoch.name", "degree.name", "degreeValue")
+                .extracting("incarnationEpoch.name", "degree.name", "level")
                 .containsExactly("La chute de l'atlantide", "Alchimie", 3);
 
     }
