@@ -78,6 +78,7 @@ class DegreeControllerShould {
                 .type(DegreeTypeEnum.OCCULT_ART)
                 .build();
 
+        // FIXME verifier presence bdd
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post(DEGREE_URI)
                         .content(asJsonString(degree))
@@ -89,5 +90,6 @@ class DegreeControllerShould {
 
     @Test
     void update() {
+        // TODO
     }
 }
