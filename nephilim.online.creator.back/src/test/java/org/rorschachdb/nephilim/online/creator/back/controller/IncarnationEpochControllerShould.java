@@ -40,7 +40,7 @@ class IncarnationEpochControllerShould {
 
     @Test
     void findAll() throws Exception {
-        this.mockMvc.perform(get(INCARNATION_EPOCH_URI))
+        this.mockMvc.perform(get(INCARNATION_EPOCH_URI).accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

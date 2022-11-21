@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rorschachdb.nephilim.online.creator.back.mappers.DegreeMapper;
 import org.rorschachdb.nephilim.online.creator.back.model.entities.Degree;
-import org.rorschachdb.nephilim.online.creator.back.model.entities.IncarnationEpoch;
 import org.rorschachdb.nephilim.online.creator.back.model.representation.DegreeRepresentation;
-import org.rorschachdb.nephilim.online.creator.back.model.representation.IncarnationEpochRepresentation;
 import org.rorschachdb.nephilim.online.creator.back.repositories.DegreeRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -14,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 import static org.rorschachdb.nephilim.online.creator.back.controller.ControllerConstants.*;
 
 @RestController
-@RequestMapping(DEGREE_URI)
+@RequestMapping(value = DEGREE_URI, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Slf4j
 public class DegreeController {
@@ -57,7 +56,7 @@ public class DegreeController {
      * @return 200 with {@link Degree} as body or 404 if not eist
      */
     @GetMapping(ID_URI_PART)
-    public ResponseEntity<DegreeRepresentation> findOne(@PathVariable(PATH_VAR_ID) Long id) {
+    public ResponseEntity<DegreeRepresentation> findOne(@PathVariable(PATH_VAR_ID) final Long id) {
         log.info("Fetching Degree by id (" + id + ")");
         return ResponseEntity.of(
                 this.degreeRepository.findById(id).map(this.degreeMapper::toRepresentation)
@@ -73,8 +72,8 @@ public class DegreeController {
      * @return Page of results
      */
     @GetMapping
-    public Page<DegreeRepresentation> findByExample(DegreeRepresentation representation,
-                                                              @PageableDefault(Integer.MAX_VALUE) Pageable pageable) {
+    public Page<DegreeRepresentation> findByExample(final DegreeRepresentation representation,
+                                                    @PageableDefault(Integer.MAX_VALUE) final Pageable pageable) {
         return this.degreeRepository
                 .findAll(Example.of(this.degreeMapper.toEntity(representation)), pageable)
                 .map(this.degreeMapper::toRepresentation);
@@ -88,8 +87,8 @@ public class DegreeController {
      */
     @PostMapping
     @Transactional
-    public ResponseEntity<DegreeRepresentation> save(@Valid @RequestBody DegreeRepresentation representation) {
-        Degree created = this.degreeRepository
+    public ResponseEntity<DegreeRepresentation> save(@Valid @RequestBody final DegreeRepresentation representation) {
+        final Degree created = this.degreeRepository
                 .save(this.degreeMapper.toEntity(representation));
         return ResponseEntity
                 .created(URI.create(DEGREE_URI + "/" + created.getId()))
@@ -107,26 +106,27 @@ public class DegreeController {
     @PutMapping(ControllerConstants.ID_URI_PART)
     @Transactional
     public ResponseEntity<DegreeRepresentation> update(
-            @PathVariable Long id,
-            @RequestBody @Valid DegreeRepresentation representation)
+            @PathVariable final Long id,
+            @RequestBody @Valid final DegreeRepresentation representation)
             throws HttpServerErrorException {
         if (!id.equals(representation.getId())) {
             throw ID_BAD_REQUEST;
         }
-        Degree updated = this.degreeRepository
+        final Degree updated = this.degreeRepository
                 .save(this.degreeMapper.toEntity(representation));
         return ResponseEntity.ok(this.degreeMapper.toRepresentation(updated));
     }
 
     /**
      * DELETE an {@link Degree}
-     * @param id  unique identifier of {@link Degree}
+     *
+     * @param id unique identifier of {@link Degree}
      * @throws HttpServerErrorException in case the id is incorrect
      */
     @DeleteMapping(ControllerConstants.ID_URI_PART)
     @Transactional
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable final Long id) {
         if (!this.degreeRepository.existsById(id)) {
             throw ID_NOT_FOUND;
         }

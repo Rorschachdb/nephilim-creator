@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with menu icon" class="example-icon"
+          mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>&nbsp;Nephilim Online Creator</span>
+  <span class="spacer"></span>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+  <a mat-menu-item routerLink="/creation">Creation</a>
+  <a mat-menu-item routerLink="/admin">Administration</a>
+</mat-menu>

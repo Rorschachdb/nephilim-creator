@@ -22,6 +22,7 @@ export interface Degree {
   name: string,
   description: string,
   type: DegreeTypeEnum,
+  affinity: KaElementEnum,
 }
 
 export enum DegreeTypeEnum {

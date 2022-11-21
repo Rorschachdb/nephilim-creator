@@ -4,9 +4,11 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: "!moreComplexPasswordThanNeededForTests0"
+  #    connectionProperties: useUnicode=true;characterEncoding=utf-8
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
+  #    hibernate.hbm2ddl.charset_name: "UTF-8"
   h2:
     console:
       enabled: true
