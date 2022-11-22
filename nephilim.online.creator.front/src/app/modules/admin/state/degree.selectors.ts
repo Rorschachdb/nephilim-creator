@@ -18,22 +18,11 @@
  *
  */
 
-export interface Degree {
-  id: number,
-  name: string,
-  description: string,
-  type: DegreeTypeEnum,
-  affinity?: KaElementEnum,
-}
+import {degreesFeature} from "./degree.reducers";
+import {createSelector} from "@ngrx/store";
 
-export enum DegreeTypeEnum {
-  ARCANA_QUEST = 'ARCANA_QUEST',
-  ESOTERIC_QUEST = 'ESOTERIC_QUEST',
-  SIMULACRUM = 'SIMULACRUM',
-  ESOTERIC_KNOWLEDGE = 'ESOTERIC_KNOWLEDGE',
-  OCCULT_ART = 'OCCULT_ART',
-}
-
-export enum KaElementEnum {
-  FIRE = 'FIRE', EARTH = 'EARTH', WATER = 'WATER', MOON = 'MOON', AIR = 'AIR'
-}
+export const selectDegreesPageViewModel = createSelector(
+  degreesFeature.selectDegrees,
+  degreesFeature.selectLoading,
+  (degrees, loading) => ({degrees, loading})
+)
