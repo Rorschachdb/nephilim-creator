@@ -2,9 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {Store} from "@ngrx/store";
-import {selectDegreesPageViewModel} from "./state/degree.selectors";
 import {Degree} from "../../model/degree.model";
-import {RetrieveDegrees} from "./state/degree.actions";
+import {RetrieveDegreesAction} from "./state/degree.actions";
+import {selectAdminPageViewModel} from "./state/admin.selectors";
+import {IncarnationEpoch} from "../../model/incarnation-epoch.model";
+import {RetrieveIncarnationEpochAction} from "./state/incarnation-epoch.actions";
 
 /**
  * Admin data with nested structure.
@@ -35,7 +37,8 @@ export class AdminComponent implements OnInit {
   );
   dataSource: MatTreeFlatDataSource<AdminNode, FlatNode, FlatNode>;
 
-  degrees$ = this.store.select(selectDegreesPageViewModel);
+  admin$ = this.store.select(selectAdminPageViewModel);
+  private loading: unknown;
 
   constructor(private store: Store) {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -44,10 +47,12 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.degrees$.subscribe(s => {
-      this.dataSource.data = this.turnDegreeToData(s.degrees)
+    this.admin$.subscribe(s => {
+      this.loading = this.computeLoading(s);
+      this.dataSource.data = this.turnStateToData(s);
     });
-    this.store.dispatch(RetrieveDegrees());
+    this.store.dispatch(RetrieveDegreesAction());
+    this.store.dispatch(RetrieveIncarnationEpochAction());
   }
 
   hasChild = (_: number, node: FlatNode) => node.expandable;
@@ -69,7 +74,6 @@ export class AdminComponent implements OnInit {
 
 
   private turnDegreeToData(degrees: ReadonlyArray<Degree>) {
-    const result: AdminNode[] = [];
     //sort
     const sortedDegrees = degrees.map(d => d).sort((a, b) => a.type.localeCompare(b.type));
     const degreeChildren: AdminNode[] = [];
@@ -89,7 +93,23 @@ export class AdminComponent implements OnInit {
 
     }
     const degreeRoot = {name: 'Degree', children: degreeChildren}
-    result.push(degreeRoot);
+    return degreeRoot;
+  }
+
+  private turnStateToData(s: { incarnationEpochs: unknown; incarnationEpochLoading: unknown; degreeLoading: unknown; degrees: unknown }) {
+    const result: AdminNode[] = [];
+    result.push(this.turnDegreeToData(<Degree[]>s.degrees));
+    result.push(this.turnIncarnationEpochToData(<IncarnationEpoch[]>s.incarnationEpochs));
     return result;
+  }
+
+  private computeLoading(s: { incarnationEpochs: unknown; incarnationEpochLoading: unknown; degreeLoading: unknown; degrees: unknown }) {
+    return s.degreeLoading || s.incarnationEpochLoading;
+  }
+
+  private turnIncarnationEpochToData(incarnationEpochs: IncarnationEpoch[]) {
+    const ieChildren: AdminNode[] = [];
+    const degreeRoot = {name: 'Incarnation Epoch', children: ieChildren}
+    return degreeRoot;
   }
 }

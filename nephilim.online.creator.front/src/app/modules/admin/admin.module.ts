@@ -9,6 +9,7 @@ import {DegreeEffects} from "./state/degree.effects";
 import {EffectsModule} from "@ngrx/effects";
 import {StoreModule} from "@ngrx/store";
 import {degreesFeature} from "./state/degree.reducers";
+import {incarnationEpochFeature} from "./state/incarnation-epoch.reducers";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {degreesFeature} from "./state/degree.reducers";
     MatIconModule,
     EffectsModule.forFeature([DegreeEffects]),
     StoreModule.forFeature(degreesFeature),
+    StoreModule.forFeature(incarnationEpochFeature),
   ]
 })
 export class AdminModule {

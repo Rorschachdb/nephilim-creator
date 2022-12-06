@@ -28,11 +28,11 @@ import {catchError, map, mergeMap, of} from "rxjs";
 export class DegreeEffects {
 
   loadEffects$ = createEffect(() => this.actions$.pipe(
-      ofType(DegreeActions.RetrieveDegrees),
+      ofType(DegreeActions.RetrieveDegreesAction),
       mergeMap(() => this.degreeService.getAll()
         .pipe(
-          map(degrees => DegreeActions.RetrievedDegrees({degrees: degrees})),
-          catchError(() => of(DegreeActions.RetrieveFailure()))
+          map(degrees => DegreeActions.RetrievedDegreesAction({degrees: degrees})),
+          catchError(() => of(DegreeActions.RetrieveDegreeFailureAction()))
         ))
     )
   );

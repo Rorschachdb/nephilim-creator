@@ -18,11 +18,30 @@
  *
  */
 
-import {degreesFeature} from "./degree.reducers";
 import {createSelector} from "@ngrx/store";
+import {degreesFeature} from "./degree.reducers";
+import {incarnationEpochFeature} from "./incarnation-epoch.reducers";
 
 export const selectDegreesPageViewModel = createSelector(
   degreesFeature.selectDegrees,
   degreesFeature.selectLoading,
   (degrees, loading) => ({degrees, loading})
+)
+
+export const selectIncarnationEpochsPageViewModel = createSelector(
+  incarnationEpochFeature.selectIncarnationEpochs,
+  incarnationEpochFeature.selectLoading,
+  (incarnationEpochs, loading) => ({incarnationEpochs, loading})
+)
+
+export const selectAdminPageViewModel = createSelector(
+  selectDegreesPageViewModel,
+  selectIncarnationEpochsPageViewModel,
+  (
+    degreesState, incarnationEpochState) => ({
+    degrees: degreesState.degrees,
+    degreeLoading: degreesState.loading,
+    incarnationEpochs: incarnationEpochState.incarnationEpochs,
+    incarnationEpochLoading: incarnationEpochState.loading
+  })
 )

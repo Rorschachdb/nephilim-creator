@@ -1,10 +1,8 @@
 import {createAction, props} from "@ngrx/store";
 import {Degree} from "../../../model/degree.model";
 
-export const AddDegree = createAction('[Degree List] Add', props<{ degree: Degree }>());
-export const RemoveDegree = createAction('[Degree List] Remove', props<{ degree: Degree }>());
-export const retrieveType = '[Degree List] Retrieve';
-export const RetrieveDegrees = createAction(retrieveType);
-export const retrievedType = '[Degree List] Retrieved';
-export const RetrievedDegrees = createAction(retrievedType, props<{ degrees: Degree[] }>());
-export const RetrieveFailure = createAction('[Degree List] Load Failure');
+export const AddDegreeAction = createAction('[Degree List] Add', props<{ degree: Degree }>());
+export const RemoveDegreeAction = createAction('[Degree List] Remove', props<{ degree: Degree }>());
+export const RetrieveDegreesAction = createAction('[Degree List] Retrieve');
+export const RetrievedDegreesAction = createAction('[Degree List] Retrieved', props<{ degrees: Degree[] }>());
+export const RetrieveDegreeFailureAction = createAction('[Degree List] Load Failure');

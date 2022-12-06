@@ -1,5 +1,5 @@
 import {Degree} from "../../../model/degree.model";
-import {RetrievedDegrees, RetrieveDegrees, RetrieveFailure} from "./degree.actions";
+import {RetrievedDegreesAction, RetrieveDegreeFailureAction, RetrieveDegreesAction} from "./degree.actions";
 import {createFeature, createReducer, on} from "@ngrx/store";
 
 interface State {
@@ -16,16 +16,16 @@ export const degreesFeature = createFeature({
   name: 'degrees',
   reducer: createReducer(
     initialState,
-    on(RetrieveDegrees, (state) => ({
+    on(RetrieveDegreesAction, (state) => ({
       ...state,
       loading: true,
     })),
-    on(RetrievedDegrees, (state, {degrees}) => ({
+    on(RetrievedDegreesAction, (state, {degrees}) => ({
       ...state,
       degrees,
       loading: false,
     })),
-    on(RetrieveFailure, state => ({
+    on(RetrieveDegreeFailureAction, state => ({
       ...state,
       loading: false,
     }))
