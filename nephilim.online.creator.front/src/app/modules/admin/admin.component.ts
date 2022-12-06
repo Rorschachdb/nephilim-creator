@@ -108,6 +108,7 @@ export class AdminComponent implements OnInit {
   }
 
   private turnIncarnationEpochToData(incarnationEpochs: IncarnationEpoch[]) {
+    // TODO turn IncarnationEpoch[] into AdminNode []
     const ieChildren: AdminNode[] = [];
     const degreeRoot = {name: 'Incarnation Epoch', children: ieChildren}
     return degreeRoot;

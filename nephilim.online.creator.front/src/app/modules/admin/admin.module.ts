@@ -21,6 +21,7 @@ import {incarnationEpochFeature} from "./state/incarnation-epoch.reducers";
     AdminRoutingModule,
     MatTreeModule,
     MatIconModule,
+    // TODO load incarnation epoch effect
     EffectsModule.forFeature([DegreeEffects]),
     StoreModule.forFeature(degreesFeature),
     StoreModule.forFeature(incarnationEpochFeature),
