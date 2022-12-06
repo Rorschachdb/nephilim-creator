@@ -21,12 +21,12 @@
 
 package org.rorschachdb.nephilim.online.creator.back.model.embedded;
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.time.LocalDate;
 

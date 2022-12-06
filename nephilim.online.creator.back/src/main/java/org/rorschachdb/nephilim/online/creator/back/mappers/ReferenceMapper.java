@@ -20,12 +20,11 @@
 
 package org.rorschachdb.nephilim.online.creator.back.mappers;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.ObjectFactory;
 import org.mapstruct.TargetType;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.EntityManager;
 
 /**
  * @Author rorshachdb

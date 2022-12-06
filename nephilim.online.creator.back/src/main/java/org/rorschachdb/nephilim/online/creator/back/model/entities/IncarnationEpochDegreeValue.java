@@ -20,12 +20,12 @@
 
 package org.rorschachdb.nephilim.online.creator.back.model.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.IncarnationEpochDegreeValueId;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**

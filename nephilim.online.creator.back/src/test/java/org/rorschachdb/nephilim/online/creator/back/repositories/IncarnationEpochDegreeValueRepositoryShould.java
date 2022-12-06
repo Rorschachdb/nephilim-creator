@@ -20,6 +20,9 @@
 
 package org.rorschachdb.nephilim.online.creator.back.repositories;
 
+import jakarta.persistence.EntityManager;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.IncarnationEpochDegreeValueId;
 import org.rorschachdb.nephilim.online.creator.back.model.entities.Degree;
@@ -29,9 +32,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
@@ -83,7 +83,7 @@ class IncarnationEpochDegreeValueRepositoryShould {
         final Set<ConstraintViolation<?>> violations = thrown.getConstraintViolations();
         assertThat(violations).isNotEmpty().hasSize(1);
         assertThat(violations).extracting("messageTemplate")
-                .contains("{javax.validation.constraints.Max.message}");
+                .contains("{jakarta.validation.constraints.Max.message}");
 
     }
 
@@ -105,7 +105,7 @@ class IncarnationEpochDegreeValueRepositoryShould {
         final Set<ConstraintViolation<?>> violations = thrown.getConstraintViolations();
         assertThat(violations).isNotEmpty().hasSize(1);
         assertThat(violations).extracting("messageTemplate")
-                .contains("{javax.validation.constraints.Min.message}");
+                .contains("{jakarta.validation.constraints.Min.message}");
 
     }
 

@@ -1,11 +1,11 @@
 package org.rorschachdb.nephilim.online.creator.back.model.representation;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.MagicEffect;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.TimePeriod;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.EraEnum;
 
-import javax.validation.constraints.*;
 import java.util.Set;
 
 /**

@@ -1,5 +1,9 @@
 package org.rorschachdb.nephilim.online.creator.back.repositories;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.rorschachdb.nephilim.online.creator.back.model.embedded.MagicEffect;
@@ -12,10 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Set;
 
@@ -122,7 +122,7 @@ class IncarnationEpochRepositoryShould {
         final Set<ConstraintViolation<?>> violations = constraintViolationException.getConstraintViolations();
         assertThat(violations).isNotEmpty().hasSize(1);
         assertThat(violations).extracting("messageTemplate")
-                .contains("{javax.validation.constraints.NotEmpty.message}");
+                .contains("{jakarta.validation.constraints.NotEmpty.message}");
 
 
     }

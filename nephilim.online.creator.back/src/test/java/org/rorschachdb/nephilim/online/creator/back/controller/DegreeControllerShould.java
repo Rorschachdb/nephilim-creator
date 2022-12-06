@@ -1,6 +1,7 @@
 package org.rorschachdb.nephilim.online.creator.back.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.rorschachdb.nephilim.online.creator.back.model.entities.Degree;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.DegreeTypeEnum;
@@ -11,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import javax.persistence.EntityManager;
 
 import static org.hamcrest.Matchers.*;
 import static org.rorschachdb.nephilim.online.creator.back.controller.ControllerConstants.DEGREE_URI;

@@ -1,5 +1,6 @@
 package org.rorschachdb.nephilim.online.creator.back.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rorschachdb.nephilim.online.creator.back.mappers.DegreeMapper;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 

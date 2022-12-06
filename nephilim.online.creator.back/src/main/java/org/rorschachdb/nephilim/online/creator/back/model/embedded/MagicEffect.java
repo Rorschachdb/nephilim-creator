@@ -20,16 +20,16 @@
 
 package org.rorschachdb.nephilim.online.creator.back.model.embedded;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rorschachdb.nephilim.online.creator.back.model.enums.OccultScienceTypeEnum;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 /**

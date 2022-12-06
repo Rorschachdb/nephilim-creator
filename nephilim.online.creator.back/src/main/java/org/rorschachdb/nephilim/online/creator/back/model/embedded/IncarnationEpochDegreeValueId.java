@@ -20,11 +20,11 @@
 
 package org.rorschachdb.nephilim.online.creator.back.model.embedded;
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
@@ -50,7 +50,7 @@ public class IncarnationEpochDegreeValueId implements Serializable {
         this.fkDegreeId = fkDegreeId;
     }
 
-    public Long getFkIncarnationEpochId() {
+    private Long getFkIncarnationEpochId() {
         return this.fkIncarnationEpochId;
     }
 

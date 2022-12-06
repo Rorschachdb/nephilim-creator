@@ -1,5 +1,8 @@
 package org.rorschachdb.nephilim.online.creator.back.repositories;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
+import jakarta.validation.ConstraintViolationException;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.rorschachdb.nephilim.online.creator.back.model.entities.Degree;
@@ -8,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
