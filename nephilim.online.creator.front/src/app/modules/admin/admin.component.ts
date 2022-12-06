@@ -35,7 +35,7 @@ export class AdminComponent implements OnInit {
   );
   dataSource: MatTreeFlatDataSource<AdminNode, FlatNode, FlatNode>;
 
-  degrees$ = this.store.select(selectDegreesPageViewModel)
+  degrees$ = this.store.select(selectDegreesPageViewModel);
 
   constructor(private store: Store) {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -44,7 +44,9 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.degrees$.subscribe(s => this.dataSource.data = this.turnDegreeToData(s.degrees));
+    this.degrees$.subscribe(s => {
+      this.dataSource.data = this.turnDegreeToData(s.degrees)
+    });
     this.store.dispatch(RetrieveDegrees());
   }
 
