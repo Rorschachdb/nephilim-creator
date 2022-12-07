@@ -169,7 +169,7 @@ class IncarnationEpochRepositoryShould {
                     .cost(0)
                     .description("Look an eagle!")
                     .location("Up here")
-                    .era(EraEnum.ELEMENTARY_WARS)
+                    .era(EraEnum.ELEMENTAl_WARS)
                     .magicEffect(MagicEffect.builder().occultScience(OccultScienceTypeEnum.MAGIC).quantity(2).build())
                     .build();
             //WHEN

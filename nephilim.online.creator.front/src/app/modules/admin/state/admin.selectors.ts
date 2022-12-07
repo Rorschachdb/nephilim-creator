@@ -33,15 +33,3 @@ export const selectIncarnationEpochsPageViewModel = createSelector(
   incarnationEpochFeature.selectLoading,
   (incarnationEpochs, loading) => ({incarnationEpochs, loading})
 )
-
-export const selectAdminPageViewModel = createSelector(
-  selectDegreesPageViewModel,
-  selectIncarnationEpochsPageViewModel,
-  (
-    degreesState, incarnationEpochState) => ({
-    degrees: degreesState.degrees,
-    degreeLoading: degreesState.loading,
-    incarnationEpochs: incarnationEpochState.incarnationEpochs,
-    incarnationEpochLoading: incarnationEpochState.loading
-  })
-)

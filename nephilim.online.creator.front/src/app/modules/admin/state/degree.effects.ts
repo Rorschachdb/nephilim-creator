@@ -22,14 +22,14 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import * as DegreeActions from "./degree.actions";
 import {DegreeService} from "../../../services/degree.service";
-import {catchError, map, mergeMap, of} from "rxjs";
+import {catchError, map, of, switchMap} from "rxjs";
 
 @Injectable()
 export class DegreeEffects {
 
   loadEffects$ = createEffect(() => this.actions$.pipe(
       ofType(DegreeActions.RetrieveDegreesAction),
-      mergeMap(() => this.degreeService.getAll()
+      switchMap(() => this.degreeService.getAll()
         .pipe(
           map(degrees => DegreeActions.RetrievedDegreesAction({degrees: degrees})),
           catchError(() => of(DegreeActions.RetrieveDegreeFailureAction()))

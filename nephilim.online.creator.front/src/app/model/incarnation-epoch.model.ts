@@ -18,23 +18,47 @@
  *
  */
 
-//TODO implement model
+//TODO to test
 export interface IncarnationEpoch {
+  id: number,
+  name: string,
+  description: string,
+  locations: string [],
+  magicEffects: MagicEffect[],
+  cost: number,
+  timePeriod?: TimePeriod,
+  era: EraEnum,
+  degreeValues: IncarnationEpochDegreeValue[]
 }
 
 export interface MagicEffect {
+  occultScienceType: OccultScienceTypeEnum,
+  quantity: number
 }
 
 export interface TimePeriod {
+  startDate: Date,
+  endDate: Date
 }
 
 export interface IncarnationEpochDegreeValue {
+  degreeId: number,
+  level: number
 }
 
 export enum EraEnum {
-
+  LOST_ERA = 'LOST_ERA',
+  ELEMENTAL_WARS ='ELEMENTAL_WARS',
+  SECRET_COMPACTS = 'SECRET_COMPACTS'
 }
 
 export enum OccultScienceTypeEnum {
-
+  MAGIC= 'MAGIC',
+  KABBALAH = 'KABBALAH',
+  ALCHEMY = 'ALCHEMY'
+}
+export const EraEnumOrder: {[key in EraEnum]:number} = {
+  [EraEnum.LOST_ERA]:0,
+  [EraEnum.ELEMENTAL_WARS]:1,
+  [EraEnum.SECRET_COMPACTS]:2
 }

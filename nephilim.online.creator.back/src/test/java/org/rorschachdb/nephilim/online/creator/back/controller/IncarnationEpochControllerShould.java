@@ -57,7 +57,7 @@ class IncarnationEpochControllerShould {
                 .andExpect(jsonPath("$.content[0].degreeValues", hasSize(10)))
                 .andExpect(jsonPath("$.content[1].name", is("Le Déluge")))
                 .andExpect(jsonPath("$.content[1].cost", is(2)))
-                .andExpect(jsonPath("$.content[1].era", is("ELEMENTARY_WARS")))
+                .andExpect(jsonPath("$.content[1].era", is("ELEMENTAL_WARS")))
                 .andExpect(jsonPath("$.content[1].locations", anyOf(nullValue(), hasSize(0))))
                 .andExpect(jsonPath("$.content[1].magicEffects", hasSize(1)))
                 .andExpect(jsonPath("$.content[1].magicEffects[0].occultScience", is("MAGIC")))

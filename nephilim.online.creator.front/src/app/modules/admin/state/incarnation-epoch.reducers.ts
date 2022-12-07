@@ -2,7 +2,7 @@ import {createFeature, createReducer, on} from "@ngrx/store";
 import {IncarnationEpoch} from "../../../model/incarnation-epoch.model";
 import {RetrievedIncarnationEpochAction, RetrieveIncarnationEpochAction} from "./incarnation-epoch.actions";
 
-interface State {
+export interface State {
   incarnationEpochs: ReadonlyArray<IncarnationEpoch>;
   loading: boolean;
 }

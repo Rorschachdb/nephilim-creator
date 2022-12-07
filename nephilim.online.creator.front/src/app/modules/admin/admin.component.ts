@@ -5,7 +5,7 @@ import {Store} from "@ngrx/store";
 import {Degree} from "../../model/degree.model";
 import {RetrieveDegreesAction} from "./state/degree.actions";
 import {selectDegreesPageViewModel, selectIncarnationEpochsPageViewModel} from "./state/admin.selectors";
-import {IncarnationEpoch} from "../../model/incarnation-epoch.model";
+import {EraEnumOrder, IncarnationEpoch} from "../../model/incarnation-epoch.model";
 import {RetrieveIncarnationEpochAction} from "./state/incarnation-epoch.actions";
 import {combineLatest, map} from "rxjs";
 
@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
       incarnationEpochLoading: incarnationEpochState.loading
     }))
   );
-  private loading: unknown;
+  loading: unknown;
 
   constructor(private store: Store) {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -85,23 +85,25 @@ export class AdminComponent implements OnInit {
 
 
   private turnDegreeToData(degrees: ReadonlyArray<Degree>) {
-    //sort
-    const sortedDegrees = degrees.map(d => d).sort((a, b) => a.type.localeCompare(b.type));
+
     const degreeChildren: AdminNode[] = [];
 
-    //loop
-    let type = '';
-    let nodeChildren: AdminNode[] = []
-    for (const degree of sortedDegrees) {
-      if (type !== degree.type) {
-        type = degree.type.toString();
-        nodeChildren = []
-        //nodeChildren.push({name: degree.name})
-        const node = {name: degree.type.toString(), children: nodeChildren}
-        degreeChildren.push(node);
-      }
-      nodeChildren.push({name: degree.name})
+    if (degrees) {
+      //sort
+      const sortedDegrees = degrees.map(d => d).sort((a, b) => a.type.localeCompare(b.type));
 
+      //loop
+      let type = '';
+      let nodeChildren: AdminNode[] = []
+      for (const degree of sortedDegrees) {
+        if (type !== degree.type) {
+          type = degree.type.toString();
+          nodeChildren = []
+          const node = {name: degree.type.toString(), children: nodeChildren}
+          degreeChildren.push(node);
+        }
+        nodeChildren.push({name: degree.name})
+      }
     }
     const degreeRoot = {name: 'Degree', children: degreeChildren}
     return degreeRoot;
@@ -119,9 +121,48 @@ export class AdminComponent implements OnInit {
   }
 
   private turnIncarnationEpochToData(incarnationEpochs: IncarnationEpoch[]) {
-    // TODO turn IncarnationEpoch[] into AdminNode []
-    const ieChildren: AdminNode[] = [];
-    const degreeRoot = {name: 'Incarnation Epoch', children: ieChildren}
-    return degreeRoot;
+    // TODO to test
+
+    const incarnationEpochChildren: AdminNode[] = [];
+    if (incarnationEpochs) {
+      //sort
+      const sortedIncarnationEpochsByEraAndStartDate =
+        incarnationEpochs.map(d => d).sort((a, b) => {
+          return this.compareIncarnationEpochs(a, b);
+        });
+
+
+      //loop
+      let era = '';
+      let nodeChildren: AdminNode[] = []
+      for (const incarnationEpoch of sortedIncarnationEpochsByEraAndStartDate) {
+        if (era !== incarnationEpoch.era) {
+          era = incarnationEpoch.era.toString();
+          nodeChildren = []
+          const node = {name: incarnationEpoch.era.toString(), children: nodeChildren}
+          incarnationEpochChildren.push(node);
+        }
+        nodeChildren.push({name: incarnationEpoch.name})
+      }
+    }
+
+    const incarnationEpochRoot = {name: 'Incarnation Epoch', children: incarnationEpochChildren}
+    return incarnationEpochRoot;
+  }
+
+  private compareIncarnationEpochs(a: IncarnationEpoch, b: IncarnationEpoch) {
+    const compareEra = EraEnumOrder[a.era] - EraEnumOrder[b.era];
+    if (compareEra !== 0) {
+      return compareEra;
+    }
+    if (a.timePeriod == null && b.timePeriod == null) {
+      return 0;
+    } else if (a.timePeriod && b.timePeriod && a.timePeriod.startDate && b.timePeriod.startDate) {
+      return a.timePeriod.startDate.getTime() - b.timePeriod.startDate.getTime();
+    } else if (a.timePeriod && a.timePeriod.startDate) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 }
