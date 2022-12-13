@@ -4,9 +4,10 @@ import {FlatTreeControl} from "@angular/cdk/tree";
 import {Store} from "@ngrx/store";
 import {Degree} from "../../model/degree.model";
 import {RetrieveDegreesAction} from "./state/degree.actions";
-import {selectAdminPageViewModel} from "./state/admin.selectors";
+import {selectDegreesPageViewModel, selectIncarnationEpochsPageViewModel} from "./state/admin.selectors";
 import {IncarnationEpoch} from "../../model/incarnation-epoch.model";
 import {RetrieveIncarnationEpochAction} from "./state/incarnation-epoch.actions";
+import {combineLatest, map} from "rxjs";
 
 /**
  * Admin data with nested structure.
@@ -37,7 +38,17 @@ export class AdminComponent implements OnInit {
   );
   dataSource: MatTreeFlatDataSource<AdminNode, FlatNode, FlatNode>;
 
-  admin$ = this.store.select(selectAdminPageViewModel);
+  adminData$ = combineLatest(
+    [this.store.select(selectDegreesPageViewModel),
+      this.store.select(selectIncarnationEpochsPageViewModel)]
+  ).pipe(
+    map(([degreesState, incarnationEpochState]) => ({
+      degrees: degreesState.degrees,
+      degreeLoading: degreesState.loading,
+      incarnationEpochs: incarnationEpochState.incarnationEpochs,
+      incarnationEpochLoading: incarnationEpochState.loading
+    }))
+  );
   private loading: unknown;
 
   constructor(private store: Store) {
@@ -47,7 +58,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.admin$.subscribe(s => {
+    this.adminData$.subscribe(s => {
       this.loading = this.computeLoading(s);
       this.dataSource.data = this.turnStateToData(s);
     });
