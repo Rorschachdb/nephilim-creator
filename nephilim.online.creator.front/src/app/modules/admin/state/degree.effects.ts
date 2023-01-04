@@ -32,7 +32,7 @@ export class DegreeEffects {
       switchMap(() => this.degreeService.getAll()
         .pipe(
           map(degrees => DegreeActions.RetrievedDegreesAction({degrees: degrees})),
-          catchError(() => of(DegreeActions.RetrieveDegreeFailureAction()))
+          catchError((error: Error) => of(DegreeActions.RetrieveDegreeFailureAction({message: error.message})))
         ))
     )
   );

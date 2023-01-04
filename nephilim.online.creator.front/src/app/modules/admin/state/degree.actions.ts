@@ -5,4 +5,4 @@ export const AddDegreeAction = createAction('[Degree List] Add', props<{ degree:
 export const RemoveDegreeAction = createAction('[Degree List] Remove', props<{ degree: Degree }>());
 export const RetrieveDegreesAction = createAction('[Degree List] Retrieve');
 export const RetrievedDegreesAction = createAction('[Degree List] Retrieved', props<{ degrees: Degree[] }>());
-export const RetrieveDegreeFailureAction = createAction('[Degree List] Load Failure');
+export const RetrieveDegreeFailureAction = createAction('[Degree List] Load Failure', props<{ message: string }>());

@@ -8,6 +8,7 @@ import {selectDegreesPageViewModel, selectIncarnationEpochsPageViewModel} from "
 import {EraEnumOrder, IncarnationEpoch} from "../../model/incarnation-epoch.model";
 import {RetrieveIncarnationEpochAction} from "./state/incarnation-epoch.actions";
 import {combineLatest, map} from "rxjs";
+import {degreesFeature} from "./state/degree.reducers";
 
 /**
  * Admin data with nested structure.
@@ -49,6 +50,7 @@ export class AdminComponent implements OnInit {
       incarnationEpochLoading: incarnationEpochState.loading
     }))
   );
+  degreeMessage$ = this.store.select(degreesFeature.selectMessage)
   loading: unknown;
 
   constructor(private store: Store) {

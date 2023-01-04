@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Degree, DegreeTypeEnum} from "../model/degree.model";
-import {Observable, of} from "rxjs";
+import {Degree, DegreeImpl, DegreeTypeEnum} from "../model/degree.model";
+import {catchError, map, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {URI_CONSTANTS} from "./uri-constants";
+import {ServiceUtil} from "./service-util";
 
 const dataOld = [
   {
@@ -167,11 +171,17 @@ const data: Degree[] = [
 })
 export class DegreeService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<Degree[]> {
-    return of(data);
-
+    // call to service
+    return this.http.get(environment.restUri + URI_CONSTANTS.degreeUri)
+      // create observable of Degree[]
+      .pipe(
+        map((payload: any) => (<Degree[]>payload.content).map(d => DegreeImpl.of(d))),
+        catchError(ServiceUtil.handleError)
+      )
   }
+
 }

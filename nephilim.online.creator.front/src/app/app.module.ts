@@ -13,6 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './components/home/home.component';
 import {EffectsModule} from '@ngrx/effects';
 import {AdminModule} from "./modules/admin/admin.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {AdminModule} from "./modules/admin/admin.module";
     MatIconModule,
     AppRoutingModule,
     AdminModule,
+    HttpClientModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

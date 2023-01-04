@@ -5,11 +5,13 @@ import {createFeature, createReducer, on} from "@ngrx/store";
 export interface State {
   degrees: ReadonlyArray<Degree>;
   loading: boolean;
+  message: string | undefined;
 }
 
 export const initialState: State = {
   degrees: [],
   loading: false,
+  message: undefined,
 }
 
 export const degreesFeature = createFeature({
@@ -27,11 +29,13 @@ export const degreesFeature = createFeature({
         ...state,
         degrees,
         loading: false,
+        message: undefined,
       }
     }),
-    on(RetrieveDegreeFailureAction, state => {
+    on(RetrieveDegreeFailureAction, (state, {message}) => {
       return {
         ...state,
+        message,
         loading: false,
       };
     })

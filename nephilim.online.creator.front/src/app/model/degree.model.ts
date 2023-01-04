@@ -26,6 +26,35 @@ export interface Degree {
   affinity?: KaElementEnum,
 }
 
+export class DegreeImpl implements Degree {
+
+  constructor(
+    public id: number,
+    public name: string,
+    public type: DegreeTypeEnum,
+    public description: string,
+    public affinity?: KaElementEnum,
+  ) {
+
+  }
+
+  public static of(d: Degree): DegreeImpl {
+    return new DegreeImpl(
+      d.id,
+      d.name,
+      d.type,
+      d.description,
+      d.affinity,
+    )
+
+  }
+
+  public affinityI18n() {
+    return this.affinity;
+  }
+
+}
+
 export enum DegreeTypeEnum {
   ARCANA_QUEST = 'ARCANA_QUEST',
   ESOTERIC_QUEST = 'ESOTERIC_QUEST',

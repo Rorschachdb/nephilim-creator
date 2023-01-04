@@ -4,7 +4,7 @@ import {AdminComponent} from './admin.component';
 import {MockStore, provideMockStore} from "@ngrx/store/testing";
 import * as degreeReducer from "./state/degree.reducers";
 import * as incarnationEpochReducer from "./state/incarnation-epoch.reducers";
-import {DegreeTypeEnum} from "../../model/degree.model";
+import {Degree, DegreeTypeEnum} from "../../model/degree.model";
 import {MemoizedSelector, Store} from "@ngrx/store";
 import * as AdminSelectors from "./state/admin.selectors";
 import {MatTreeModule} from "@angular/material/tree";
@@ -96,7 +96,7 @@ describe('AdminComponent', () => {
   let fixture: ComponentFixture<AdminComponent>;
   let mockStore: MockStore<{ degrees: degreeReducer.State }>;
   let mockIncarnationEpochsSelector: MemoizedSelector<incarnationEpochReducer.State, incarnationEpochReducer.State>;
-  let mockDegreesSelector: MemoizedSelector<degreeReducer.State, degreeReducer.State>;
+  let mockDegreesSelector: MemoizedSelector<{ degrees: readonly Degree[], loading: boolean }, { degrees: readonly Degree[], loading: boolean }>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -123,8 +123,11 @@ describe('AdminComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should init and display degrees and incarnation epoch without values', () => {
+    // the component should exist
     expect(component).toBeTruthy();
+    // spy dispatch of store and rely on regular implementation
     const dispatchSpy = spyOn(mockStore, 'dispatch').and.callThrough();
+    // #1 init component
     component.ngOnInit();
     fixture.detectChanges();
     expect(dispatchSpy).toHaveBeenCalledTimes(2)
