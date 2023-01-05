@@ -126,7 +126,7 @@ describe('AdminComponent', () => {
     // the component should exist
     expect(component).toBeTruthy();
     // spy dispatch of store and rely on regular implementation
-    const dispatchSpy = spyOn(mockStore, 'dispatch').and.callThrough();
+    const dispatchSpy = jest.spyOn(mockStore, 'dispatch').mockImplementation();
     // #1 init component
     component.ngOnInit();
     fixture.detectChanges();
@@ -141,7 +141,7 @@ describe('AdminComponent', () => {
   });
   it('should init and display degrees and incarnation epoch with values', () => {
     expect(component).toBeTruthy();
-    const dispatchSpy = spyOn(mockStore, 'dispatch').and.callThrough();
+    const dispatchSpy = jest.spyOn(mockStore, 'dispatch').mockImplementation();
     mockDegreesSelector.setResult(degreeValuedState);
     mockIncarnationEpochsSelector.setResult(ieValuedState);
     mockStore.refreshState();
@@ -158,7 +158,7 @@ describe('AdminComponent', () => {
   });
   it('should init and display loading', () => {
     expect(component).toBeTruthy();
-    const dispatchSpy = spyOn(mockStore, 'dispatch').and.callThrough();
+    const dispatchSpy = jest.spyOn(mockStore, 'dispatch').mockImplementation();
     mockDegreesSelector.setResult(degreeLoadingState);
     mockIncarnationEpochsSelector.setResult(ieLoadingState);
     mockStore.refreshState();
