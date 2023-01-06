@@ -112,8 +112,13 @@
                 <configuration>
                     <includes>
                         <include>**/*Should.java</include>
-                        <argLine>-Dfile.encoding=UTF-8</argLine>
                     </includes>
+                    <systemPropertyVariables>
+                        <file.encoding>UTF-8</file.encoding>
+                    </systemPropertyVariables>
+                    <argLine>
+                        -Dfile.encoding=UTF-8
+                    </argLine>
                 </configuration>
             </plugin>
             <plugin>

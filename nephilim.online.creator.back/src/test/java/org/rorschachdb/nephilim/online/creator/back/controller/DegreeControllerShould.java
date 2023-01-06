@@ -37,7 +37,7 @@ class DegreeControllerShould {
 
     @Test
     void findOne() throws Exception {
-        this.mockMvc.perform(get(DEGREE_URI + "/2001"))
+        this.mockMvc.perform(get(DEGREE_URI + "/2001").header("Accept-Charset", "utf-8"))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

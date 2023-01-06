@@ -31,7 +31,7 @@ const dataOld = [
   }
 ];
 
-const data: Degree[] = [
+const data: Degree[] = <Degree[]>[
   {
     "id": 1001,
     "name": "Le sentier d'or",

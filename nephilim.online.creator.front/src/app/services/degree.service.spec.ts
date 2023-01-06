@@ -27,7 +27,7 @@ describe('DegreeService', () => {
   });
   it('should retrieve data', () => {
     // test data
-    const testData: Degree[] = [
+    const testData: Degree[] = <Degree[]>[
       {
         "id": 1002,
         "name": "Hyperborée",
@@ -56,7 +56,7 @@ describe('DegreeService', () => {
   });
   it('should handle error', () => {
     // test data
-    const testData: Degree[] = [
+    const testData: Degree[] = <Degree[]>[
       {
         "id": 1002,
         "name": "Hyperborée",

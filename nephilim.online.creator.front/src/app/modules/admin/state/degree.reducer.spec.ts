@@ -20,9 +20,9 @@
 
 import {degreesFeature, initialState} from "./degree.reducers";
 import {RetrievedDegreesAction, RetrieveDegreeFailureAction, RetrieveDegreesAction} from "./degree.actions";
-import {DegreeTypeEnum} from "../../../model/degree.model";
+import {Degree, DegreeTypeEnum} from "../../../model/degree.model";
 
-const degrees = [
+const degrees: Degree[] = <Degree[]>[
   {
     "id": 1002,
     "name": "Hyperborée",

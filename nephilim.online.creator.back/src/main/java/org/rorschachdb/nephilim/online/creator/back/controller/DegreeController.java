@@ -55,7 +55,7 @@ public class DegreeController {
      * @param id {@link Degree} id
      * @return 200 with {@link Degree} as body or 404 if not eist
      */
-    @GetMapping(ID_URI_PART)
+    @GetMapping(value = ID_URI_PART)
     public ResponseEntity<DegreeRepresentation> findOne(@PathVariable(PATH_VAR_ID) final Long id) {
         log.info("Fetching Degree by id (" + id + ")");
         return ResponseEntity.of(

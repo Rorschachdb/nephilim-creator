@@ -16,7 +16,7 @@ import {RetrieveDegreesAction} from "./state/degree.actions";
 import {RetrieveIncarnationEpochAction} from "./state/incarnation-epoch.actions";
 
 const degreeValuedState = {
-  degrees: [
+  degrees: <Degree[]>[
     {
       "id": 1002,
       "name": "Hyperborée",

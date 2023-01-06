@@ -19,11 +19,13 @@
  */
 
 export interface Degree {
-  id: number,
-  name: string,
-  description: string,
-  type: DegreeTypeEnum,
-  affinity?: KaElementEnum,
+  id: number;
+  name: string;
+  description: string;
+  type: DegreeTypeEnum;
+  affinity?: KaElementEnum;
+
+  affinityI18n(): string | undefined;
 }
 
 export class DegreeImpl implements Degree {
@@ -46,7 +48,6 @@ export class DegreeImpl implements Degree {
       d.description,
       d.affinity,
     )
-
   }
 
   public affinityI18n() {
